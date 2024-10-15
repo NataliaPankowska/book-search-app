@@ -1,27 +1,41 @@
 import { Heading } from "@chakra-ui/react"
-import { useEffect } from "react"
-// import apiClient from "./services/apiClient";
+import { useEffect, useState } from "react"
+import useData from "./hooks/useData";
 import CaloriesChart from "./components/caloriesChart";
 
-interface Receipe {
-  title: string,
-  ingr: string[]
-}
+import FoodQuery from "./components/FoodQuery";
+
+
+
 
 
 function App() {
  
-  // useEffect(() => {
-  //   apiClient.post<Receipe>('', { title: 'onion soup', ingr: ['3 onions', '300g cheese']})
-  //   .then(res => console.log(res.data))
-  //   .catch(err => console.error(err))
-  // }, [])
+ 
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const data = useData(ingredients)
+  const [calories, setCalories] = useState<number>(0)
+  
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      setCalories(0);
+      
+    } else {
+      if (data?.calories !== undefined) {
+      setCalories(data.calories); // Update calories based on API data
+    }
+  }}, [data, ingredients]);
 
+
+
+ console.log(data)
 
   return (
     <>
      <Heading>books</Heading>
-     <CaloriesChart calories={600} caloriesNeeded={2000}/>
+   <FoodQuery ingredients={ingredients} onDelete={(ingr) => setIngredients(ingredients.filter((el) => el !== ingr)) } onSearch={(searchText) => setIngredients([...ingredients, searchText])}/>
+   <CaloriesChart calories={calories} caloriesNeeded={2000}/>
+
     </>
   )
 }
