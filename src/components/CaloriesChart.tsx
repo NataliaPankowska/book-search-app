@@ -15,7 +15,7 @@ const CaloriesChart = ({calories, caloriesNeeded}: Props) => {
     const label = `${percentage}%`;
     console.log(percentage);
     const meal = [
-        {name: 'Calories', amount: percentage, label: label, fill: '#fca311'},
+        {name: `${calories} Calories`, amount: percentage, label: label, fill: '#fca311'},
        
     ];
  

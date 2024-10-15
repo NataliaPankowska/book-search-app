@@ -1,17 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 
-interface Recipe {
-    title: string,
-    ingr: string[]
-}
 
-const useData = () => {
+
+interface Data {
+    calories: number
+  }
+
+
+const useData = (ingredients: string[]) => {
+   const [data, setData] = useState<Data>()
+//    const [calories, setCalories] = useState();
     useEffect(() => {
-        apiClient.post<Recipe>('', {title: 'onion soup', ingr: ['1 onion', '300g cheese']})
-        .then(res => console.log(res.data))
-        .catch(err=> console.log(err))
-    }, [])
+        if (ingredients.length === 0) {
+            
+            return; // Exit early if there are no ingredients
+        }
+        apiClient.post('', { 'ingr':ingredients})
+        .then(res => setData(res.data) )
+        .catch(err=> console.log(err.response))
+    }, [ingredients]);
+return data;
 }
 
 export default useData;
