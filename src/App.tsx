@@ -1,7 +1,7 @@
-import { Heading } from "@chakra-ui/react"
+import { Grid, GridItem, Heading } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import useData from "./hooks/useData";
-import CaloriesChart from "./components/caloriesChart";
+import CaloriesChart from "./components/CaloriesChart";
 
 import FoodQuery from "./components/FoodQuery";
 
@@ -13,7 +13,9 @@ function App() {
  
  
   const [ingredients, setIngredients] = useState<string[]>([]);
-  const data = useData(ingredients)
+  const{ data, error }= useData(ingredients, (validIngredients) => {
+    setIngredients(validIngredients); // Update the ingredients array with only valid ones
+})
   const [calories, setCalories] = useState<number>(0)
   
   useEffect(() => {
@@ -28,14 +30,26 @@ function App() {
 
 
 
- console.log(data)
+ console.log(ingredients)
 
   return (
     <>
-     <Heading>books</Heading>
-   <FoodQuery ingredients={ingredients} onDelete={(ingr) => setIngredients(ingredients.filter((el) => el !== ingr)) } onSearch={(searchText) => setIngredients([...ingredients, searchText])}/>
-   <CaloriesChart calories={calories} caloriesNeeded={2000}/>
+    <Grid templateAreas={`"header" "main" "footer"`} padding='10px' >
+         <GridItem area='header'>
+         {/* <Heading>Tell me what I eat...</Heading> */}
+         </GridItem>
+         <GridItem area='main'>
+         <FoodQuery apiError={error} ingredients={ingredients} onDelete={(ingr) => setIngredients(ingredients.filter((el) => el !== ingr)) } onSearch={(searchText) => setIngredients([...ingredients, searchText])}/>
+        
+     <CaloriesChart calories={calories} caloriesNeeded={2000} />
 
+         </GridItem>
+         <GridItem area='footer'>
+     
+         </GridItem>
+    
+  
+   </Grid>
     </>
   )
 }
