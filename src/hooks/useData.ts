@@ -11,21 +11,25 @@ interface Data {
 const useData = (ingredients: string[], onUpdateIngredients: (validIngredients: string[])=> void) => {
    const [data, setData] = useState<Data>()
    const [error, setError] = useState<string | null>(null);
+   const [isLoading, setIsLoading] = useState(false);
+   const [validIngredients, setValidIngredients] = useState<string[]>([])
    
 //    const [calories, setCalories] = useState();
     useEffect(() => {
         if (ingredients.length === 0) {
-            
-            
+            setIsLoading(false)
+            setValidIngredients([])
             return; // Exit early if there are no ingredients
         }
         setError(null);
+        setIsLoading(true)
        
         apiClient.post('', { 'ingr':ingredients})
         .then(res => {
 
             setData(res.data);
-        
+            setIsLoading(false);
+            setValidIngredients(ingredients);
             
         })
         .catch(err=> { 
@@ -39,7 +43,8 @@ const useData = (ingredients: string[], onUpdateIngredients: (validIngredients: 
 
             }else{
                 setError('damn');
-            }
+            };
+            setIsLoading(false);
             }
            
            
@@ -57,7 +62,7 @@ const useData = (ingredients: string[], onUpdateIngredients: (validIngredients: 
             
         )
     }, [ingredients]);
-return {data, error};
+return {data, error, isLoading, validIngredients};
 }
 
 export default useData;

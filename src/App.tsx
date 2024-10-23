@@ -13,7 +13,7 @@ function App() {
  
  
   const [ingredients, setIngredients] = useState<string[]>([]);
-  const{ data, error }= useData(ingredients, (validIngredients) => {
+  const{ data, error, isLoading, validIngredients }= useData(ingredients, (validIngredients) => {
     setIngredients(validIngredients); // Update the ingredients array with only valid ones
 })
   const [calories, setCalories] = useState<number>(0)
@@ -30,7 +30,7 @@ function App() {
 
 
 
- console.log(ingredients)
+ console.log(validIngredients)
 
   return (
     <>
@@ -39,7 +39,7 @@ function App() {
          {/* <Heading>Tell me what I eat...</Heading> */}
          </GridItem>
          <GridItem area='main'>
-         <FoodQuery apiError={error} ingredients={ingredients} onDelete={(ingr) => setIngredients(ingredients.filter((el) => el !== ingr)) } onSearch={(searchText) => setIngredients([...ingredients, searchText])}/>
+         <FoodQuery isLoading={isLoading} apiError={error} ingredients={validIngredients} onDelete={(ingr) => setIngredients(ingredients.filter((el) => el !== ingr)) } onSearch={(searchText) => setIngredients([...ingredients, searchText])}/>
         
      <CaloriesChart calories={calories} caloriesNeeded={2000} />
 
