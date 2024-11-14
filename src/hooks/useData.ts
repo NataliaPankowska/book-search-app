@@ -4,7 +4,20 @@ import apiClient from "../services/apiClient";
 
 
 interface Data {
-    calories: number
+    calories: number,
+    totalNutrients: {
+        CHOCDF: {
+          quantity: number   
+        } ,
+        FAT: {
+            quantity: number
+        },
+        PROCNT:{
+            quantity: number
+        }
+
+    }
+
   }
 
 

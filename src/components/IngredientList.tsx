@@ -11,19 +11,14 @@ interface Props {
 export const IngredientList = ({ingredients, onDelete, isLoading}: Props) => {
    
   return (
-   <Table>
-    <Thead>
-        <Tr>
-            <Th>Ingredients</Th>
-        </Tr>
-    </Thead>
-    <Tbody>
+   <Table className="ingr-list" size='sm' >
   
+    <Tbody>
     {
-        ingredients.map(ingr => <Tr key={ingr}>
+        ingredients.map(ingr => <Tr key={ingr} h='20px' >
         {}
-           <Td> {ingr}</Td>
-           <Td> <Button onClick={() => onDelete(ingr)}><CloseIcon /></Button></Td>
+           <Td > {ingr}</Td>
+           <Td  bg="#ffb4a2" width='20px'> <Button size='xs' colorScheme='white' variant='ghost' onClick={() => onDelete(ingr)}><CloseIcon /></Button></Td>
             </Tr>)
       
     }    
