@@ -1,6 +1,6 @@
 
 
-import { background, Box, Flex, flexbox, Grid, GridItem } from "@chakra-ui/react"
+import {  Box, Flex } from "@chakra-ui/react"
 import { IngredientList } from "./IngredientList"
 import MealInputForm from "./MealInputForm"
 import NutrimentsTable from "./NutrimentsTable"
@@ -18,28 +18,37 @@ interface Props {
     fat: number,
     proteins: number,
     carbs: number,
-    meal: string
+    meal: string,
+    handleSaveMeal:  () => void;
 }
 
-const FoodQuery = ({onSearch, onDelete, ingredients, apiError, isLoading,  calories, fat, proteins, carbs, meal}: Props) => {
+const FoodQuery = ({onSearch, onDelete, ingredients, apiError, isLoading,  calories, fat, proteins, carbs, meal, handleSaveMeal}: Props) => {
    
     
   return (
     <>
- <Flex direction='column' gap={5}>
 
+ <Flex direction='column' gap={10} >
+   
     <MealInputForm apiError={apiError} onSearch={onSearch} meal={meal}/>
-  <Flex direction='row' wrap="wrap">
-  <Box w='40%'>
+ 
+   {ingredients.length > 0 && <Flex direction='column' justify="flex-start" gap={10}>
+  <Flex direction='row' wrap="wrap" gap={10}>
+  
+
     <IngredientList ingredients={ingredients} onDelete={onDelete} isLoading={isLoading}/>
     
-    </Box>
-    <Box w='40%'>
+
+
+    <Box alignItems='top'>
     <NutrimentsTable calories={calories} fat={fat} proteins={proteins} carbs={carbs}/>
     </Box>
+    
     </Flex>
-
-    <SaveButton meal={meal} />
+    <Box alignSelf='flex-start'>
+    <SaveButton meal={meal} handleSaveMeal={handleSaveMeal} />
+    </Box>
+    </Flex>}
   
     </Flex>
     </>

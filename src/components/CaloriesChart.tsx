@@ -1,22 +1,26 @@
 
 
 import { ResponsiveContainer, RadialBarChart, RadialBar, PolarAngleAxis, Legend, LabelList } from "recharts"
-
+import { Meal } from "../services/types"
 interface Props {
-    calories: number,
+    meal: Meal[],
     caloriesNeeded: number,
     // meal: string
 }
 
-const CaloriesChart = ({calories, caloriesNeeded}: Props) => {
-    // const calories = 450;
+const CaloriesChart = ({meal, caloriesNeeded}: Props) => {
+  
+    const totCalories = meal.reduce((sum, meal)=> sum + meal.calories, 0 )
+
+    
     // const caloriesNeed = 2000;
-    const percentage = (calories/caloriesNeeded) * 100;
-    const label = `${percentage}%`;
-    console.log(percentage);
-    const meal = [
-        {name: `${calories} Calories`, amount: percentage, label: label, fill: '#fca311'},
-       
+    const percentage =meal && (totCalories/caloriesNeeded) * 100;
+    const percentInteger = percentage && percentage.toFixed();
+   
+    const label = `${percentInteger}%`;
+   
+    const data = [
+      meal.length > 0 &&  {name: `${totCalories} Calories`, amount: percentInteger, label: label, fill: '#fca311'},    
     ];
  
    
@@ -34,10 +38,10 @@ const CaloriesChart = ({calories, caloriesNeeded}: Props) => {
        
         innerRadius={100}
         outerRadius={140}
-      data={meal}>
-        <RadialBar dataKey='amount' background={true} fill='#fca311' >
+      data={data}>
+        <RadialBar dataKey='amount' fill='#fca311' >
             <LabelList dataKey='label' position="center"  fontWeight='900' />
-            </RadialBar>
+        </RadialBar>
             <PolarAngleAxis  tick={false}
         domain={[0, 100]}
         type="number" />

@@ -51,7 +51,7 @@ const useData = (ingredients: string[], onUpdateIngredients: (validIngredients: 
                 const invalidIng = ingredients.pop();
                 const validIngredients = ingredients.filter((i) => i !== invalidIng);
                 onUpdateIngredients(validIngredients)
-                setError('oh no');
+                setError('oh no, i don\'t know that food');
                 console.log(err.response);
 
             }else{

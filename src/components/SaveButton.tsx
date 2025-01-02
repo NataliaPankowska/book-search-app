@@ -1,12 +1,13 @@
 import { Button } from '@chakra-ui/react'
 
 interface Props{
-    meal: string
+    meal: string,
+    handleSaveMeal: () => void;
 }
 
-const SaveButton = ({meal}: Props) => {
+const SaveButton = ({meal, handleSaveMeal}: Props) => {
   return (
-    <Button>Save your {meal}</Button>
+    <Button onClick={handleSaveMeal} >Save your {meal}</Button>
   )
 }
 

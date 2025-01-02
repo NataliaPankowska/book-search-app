@@ -25,6 +25,7 @@ const MealInputForm = ({onSearch, apiError, meal}: Props) => {
 
   return (
     <form   
+    
         onSubmit={handleSubmit(({description}) => {
           onSearch(description);
           reset();
@@ -32,13 +33,12 @@ const MealInputForm = ({onSearch, apiError, meal}: Props) => {
     >
       <FormLabel>Add all ingredients (one by one) of your today's {meal}</FormLabel>
 
-      <HStack width="80%">
-      <Input type='text' {...register('description')}placeholder='ex. 30g cheese' id='description'/>
-      {errors.description  && <p className='texte-danger'>{errors.description.message}</p>}
-      {apiError && <h1>{apiError}</h1>} 
-   
+      <HStack width="40vw">
+      <Input type='text' {...register('description')}placeholder='ex. 30g cheese' id='description' /> 
       <Button type='submit'><AddIcon/></Button>
       </HStack>
+      {errors.description  && <p className='textdanger'>{errors.description.message}</p>}
+      {apiError && <h1 className='textdanger'>{apiError}</h1>}
     </form>
   )
 }

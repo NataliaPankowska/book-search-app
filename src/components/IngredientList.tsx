@@ -1,5 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons"
-import { Button, Skeleton, SkeletonText, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import { Button,  Table, TableContainer, Tbody, Td, Tr } from "@chakra-ui/react"
 import IngredientSkeleton from "./IngredientSkeleton"
 
 interface Props {
@@ -11,14 +11,15 @@ interface Props {
 export const IngredientList = ({ingredients, onDelete, isLoading}: Props) => {
    
   return (
-   <Table className="ingr-list" size='sm' >
+    <TableContainer style={{ borderRadius: '10px', width: '40vw'}}>
+   <Table  variant='unstyled' className="ingr-list" size='sm' >
   
     <Tbody>
     {
         ingredients.map(ingr => <Tr key={ingr} h='20px' >
         {}
            <Td > {ingr}</Td>
-           <Td  bg="#ffb4a2" width='20px'> <Button size='xs' colorScheme='white' variant='ghost' onClick={() => onDelete(ingr)}><CloseIcon /></Button></Td>
+           <Td width='20px'> <Button size='xs' colorScheme='white' variant='ghost' onClick={() => onDelete(ingr)}><CloseIcon /></Button></Td>
             </Tr>)
       
     }    
@@ -26,5 +27,6 @@ export const IngredientList = ({ingredients, onDelete, isLoading}: Props) => {
    {isLoading && <IngredientSkeleton />   }
     </Tbody>
    </Table>
+   </TableContainer>
   )
 }
