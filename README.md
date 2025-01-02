@@ -1,3 +1,9 @@
+Simple food tracker app, which allows the user to check if the foods he have eaten during the day contains correct amount of calories, proteins, fat and carbohydrates. 
+To calculate the amount of nutriments i used edamam.com API - those information should be accurate. Still, the daily needs of nutriments are estimated on 55kg, semi-ctive women. They are not adequate for everyone. This is a school project so please do not take the data seriously. 
+Type your foods in english and have fun!
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
